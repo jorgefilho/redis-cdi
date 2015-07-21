@@ -3,6 +3,6 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/beans_1_1.xsd"
 	version="1.1" bean-discovery-mode="all">
 	<interceptors>
-		me.jorgefilho.poc.rediscdi.interceptor.CachingInterceptor
+		<class>me.jorgefilho.poc.rediscdi.interceptor.CachingInterceptor</class>
 	</interceptors>
 </beans>
