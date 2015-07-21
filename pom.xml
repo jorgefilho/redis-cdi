@@ -35,6 +35,7 @@
 
 		<!-- plugins -->
 		<version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
+		<version.maven-surefire-plugin>2.17</version.maven-surefire-plugin>
 		<!-- plugins -->
 	</properties>
 
