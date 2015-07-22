@@ -30,6 +30,7 @@
 		<version.embedded-redis>0.6</version.embedded-redis>
 		<version.gson>2.3.1</version.gson>
 		<version.jedis>2.7.2</version.jedis>
+		<version.jsr311-api>1.1.1</version.jsr311-api>
 		<version.org.slf4j>1.7.10</version.org.slf4j>
 		<!-- dependencies -->
 
@@ -75,6 +76,13 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- cdi -->
+		<!-- jsr 311 -->
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>${version.jsr311-api}</version>
+		</dependency>
+		<!-- jsr 311 -->
 		<!-- apache commons -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
