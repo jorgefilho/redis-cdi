@@ -30,13 +30,16 @@
 		<version.embedded-redis>0.6</version.embedded-redis>
 		<version.gson>2.3.1</version.gson>
 		<version.jedis>2.7.2</version.jedis>
+		<version.jetty>9.3.1.v20150714</version.jetty>
 		<version.jsr311-api>1.1.1</version.jsr311-api>
 		<version.org.slf4j>1.7.10</version.org.slf4j>
+
 		<!-- dependencies -->
 
 		<!-- plugins -->
 		<version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
 		<version.maven-surefire-plugin>2.17</version.maven-surefire-plugin>
+		<version.maven-jetty-plugin>6.1.26</version.maven-jetty-plugin>
 		<!-- plugins -->
 	</properties>
 
@@ -53,13 +56,7 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<runOrder>random</runOrder>
-				</configuration>
-			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -104,6 +101,18 @@
 			<version>${version.jedis}</version>
 		</dependency>
 		<!-- jedis -->
+		<!-- jetty -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${version.jetty}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>${version.jetty}</version>
+		</dependency>
+		<!-- jetty -->
 		<!-- log4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

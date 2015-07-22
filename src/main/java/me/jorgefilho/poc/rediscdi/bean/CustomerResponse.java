@@ -16,7 +16,6 @@ public class CustomerResponse implements Serializable{
 	}
 
 	public CustomerResponse(final List<Customer> customers) {
-		super();
 		this.customers = customers;
 	}
 
