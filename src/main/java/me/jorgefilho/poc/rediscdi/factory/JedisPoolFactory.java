@@ -1,5 +1,6 @@
 package me.jorgefilho.poc.rediscdi.factory;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -9,6 +10,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
 import redis.clients.jedis.JedisPool;
 
+@ApplicationScoped
 public class JedisPoolFactory {
 	
 	@Inject

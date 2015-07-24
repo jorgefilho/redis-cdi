@@ -5,6 +5,7 @@
 	<artifactId>redis-cdi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<inceptionYear>2015</inceptionYear>
+	<packaging>war</packaging>
 	<developers>
 		<developer>
 			<name>Jorge Filho</name>
@@ -21,7 +22,7 @@
 	</scm>
 
 	<properties>
-		<project.reporting.outputEncoding>ISO-8859-1</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 
 		<!-- dependencies -->
@@ -30,16 +31,16 @@
 		<version.embedded-redis>0.6</version.embedded-redis>
 		<version.gson>2.3.1</version.gson>
 		<version.jedis>2.7.2</version.jedis>
-		<version.jetty>9.3.1.v20150714</version.jetty>
+		<version.jersey>2.19</version.jersey>
 		<version.jsr311-api>1.1.1</version.jsr311-api>
 		<version.org.slf4j>1.7.10</version.org.slf4j>
+		<version.wildfly-swarm>1.0.0.Alpha3</version.wildfly-swarm>
 
 		<!-- dependencies -->
 
 		<!-- plugins -->
 		<version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
 		<version.maven-surefire-plugin>2.17</version.maven-surefire-plugin>
-		<version.maven-jetty-plugin>6.1.26</version.maven-jetty-plugin>
 		<!-- plugins -->
 	</properties>
 
@@ -56,11 +57,25 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${version.maven-surefire-plugin}</version>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.wildfly.swarm</groupId>
+				<artifactId>wildfly-swarm-plugin</artifactId>
+				<version>${version.wildfly-swarm}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>package</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -80,6 +95,7 @@
 			<version>${version.jsr311-api}</version>
 		</dependency>
 		<!-- jsr 311 -->
+
 		<!-- apache commons -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -101,18 +117,13 @@
 			<version>${version.jedis}</version>
 		</dependency>
 		<!-- jedis -->
-		<!-- jetty -->
+		<!-- wildfly-swarm -->
 		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>${version.jetty}</version>
+			<groupId>org.wildfly.swarm</groupId>
+			<artifactId>wildfly-swarm-weld-jaxrs</artifactId>
+			<version>${version.wildfly-swarm}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-servlet</artifactId>
-			<version>${version.jetty}</version>
-		</dependency>
-		<!-- jetty -->
+		<!-- wildfly-swarm -->
 		<!-- log4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
