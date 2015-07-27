@@ -19,7 +19,7 @@ public class JedisPoolFactory {
     @Singleton
     public @Produces JedisPool getJedisPool(){
     	
-        this.jedisPool = new JedisPool(new GenericObjectPoolConfig(), "127.0.0.1", 6279, 5000);
+        this.jedisPool = new JedisPool(new GenericObjectPoolConfig(), "127.0.0.1", 6379, 5000); // default from redis 
         return this.jedisPool;
     }
  

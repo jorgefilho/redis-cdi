@@ -7,4 +7,5 @@ import me.jorgefilho.poc.rediscdi.domain.Customer;
 
 public interface CustomerService extends Serializable {
 	List<Customer> getAll();
+	Customer getById(Integer id);
 }

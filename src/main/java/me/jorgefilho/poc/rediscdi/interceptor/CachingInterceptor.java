@@ -46,7 +46,7 @@ public class CachingInterceptor implements Serializable {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private Object getReturnOfCache(final InvocationContext ctx) throws Exception {
+	private Object getReturnOfCache(final InvocationContext ctx) throws Exception  {
 		Object objectToReturn = null;
 		
 		final String key = getKey(ctx.getMethod(), ctx.getParameters());
