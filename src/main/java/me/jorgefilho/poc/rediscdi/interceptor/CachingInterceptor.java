@@ -19,6 +19,7 @@ import me.jorgefilho.poc.rediscdi.annotation.Cached;
 import me.jorgefilho.poc.rediscdi.domain.Envelope;
 import me.jorgefilho.poc.rediscdi.repository.CacheRepository;
 import me.jorgefilho.poc.rediscdi.util.ClassTypeAdapter;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 
 @Interceptor
 @Cached
@@ -46,35 +47,40 @@ public class CachingInterceptor implements Serializable {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private Object getReturnOfCache(final InvocationContext ctx) throws Exception  {
+	private Object getReturnOfCache(final InvocationContext ctx) throws Exception {
 		Object objectToReturn = null;
-		
-		final String key = getKey(ctx.getMethod(), ctx.getParameters());
-		final String json = cacheRepository.get(key);
-		
-		if (json == null) {
-			objectToReturn = ctx.proceed();
-			
-			final int timeToExpire = getTime(ctx.getMethod());
-			final Envelope envelope = new Envelope(gson.toJson(objectToReturn), objectToReturn.getClass());
 
-			final String statusCode = cacheRepository.setex(key,timeToExpire, gson.toJson(envelope));
+		try{
 			
-			if (!statusCode.equals("OK")){
-				LOGGER.warn("Problems in recording cache - status code {}", statusCode);
-			}
-		}else {
-			final Envelope envelope = gson.fromJson(json, Envelope.class);
-			final Class type = envelope.getTypeOfJson();
+			final String key = getKey(ctx.getMethod(), ctx.getParameters());
+			final String json = cacheRepository.get(key);
 			
-			objectToReturn = gson.fromJson(envelope.getJson(), type);
-			
-			if (objectToReturn == null) {
+			if (json == null) {
 				objectToReturn = ctx.proceed();
-				LOGGER.warn("Problems whith the object type - Type Envelop {}", type);
+				
+				final int timeToExpire = getTime(ctx.getMethod());
+				final Envelope envelope = new Envelope(gson.toJson(objectToReturn), objectToReturn.getClass());
+	
+				final String statusCode = cacheRepository.setex(key,timeToExpire, gson.toJson(envelope));
+				
+				if (!statusCode.equals("OK")){
+					LOGGER.warn("Problems in recording cache - status code {}", statusCode);
+				}
+			} else {
+				final Envelope envelope = gson.fromJson(json, Envelope.class);
+				final Class type = envelope.getTypeOfJson();
+				
+				objectToReturn = gson.fromJson(envelope.getJson(), type);
+				
+				if (objectToReturn == null) {
+					objectToReturn = ctx.proceed();
+					LOGGER.warn("Problems whith the object type - Type Envelop {}", type);
+				}
 			}
+		} catch (JedisConnectionException e){
+			LOGGER.error("*** Redis is out - {}", e.getMessage());
+			objectToReturn = ctx.proceed();
 		}
-		
 		return objectToReturn;
 	}
 
