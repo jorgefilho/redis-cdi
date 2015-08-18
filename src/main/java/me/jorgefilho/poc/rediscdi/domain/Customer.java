@@ -2,10 +2,13 @@ package me.jorgefilho.poc.rediscdi.domain;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
 	private Integer id;
 	
 	private String name;
