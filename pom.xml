@@ -34,6 +34,7 @@
 		<version.jersey>2.19</version.jersey>
 		<version.jsr311-api>1.1.1</version.jsr311-api>
 		<version.org.slf4j>1.7.10</version.org.slf4j>
+		<version.spring-data>1.7.2.RELEASE</version.spring-data>
 		<version.wildfly-swarm>1.0.0.Alpha3</version.wildfly-swarm>
 
 		<!-- dependencies -->
@@ -123,5 +124,12 @@
 			<version>${version.org.slf4j}</version>
 		</dependency>
 		<!-- log4j -->
+		<!-- spring-data -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>${version.spring-data}</version>
+		</dependency>
+		<!-- spring-data -->
 	</dependencies>
 </project>
