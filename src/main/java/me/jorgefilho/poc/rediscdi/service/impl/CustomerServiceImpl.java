@@ -1,28 +1,32 @@
 package me.jorgefilho.poc.rediscdi.service.impl;
 
-import java.util.List;
+import me.jorgefilho.poc.rediscdi.domain.Customer;
+import me.jorgefilho.poc.rediscdi.repository.CustomerRepository;
+import me.jorgefilho.poc.rediscdi.service.CustomerService;
 
 import javax.inject.Inject;
-
-import me.jorgefilho.poc.rediscdi.domain.Customer;
-import me.jorgefilho.poc.rediscdi.mock.CustomerRepositoryMock;
-import me.jorgefilho.poc.rediscdi.service.CustomerService;
+import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {
 	
 	@Inject
-	private CustomerRepositoryMock customerRepositoryMock;
+	private CustomerRepository customerRepository;
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public List<Customer> getAll() {
-		return customerRepositoryMock.getAll();
+		return customerRepository.findAll();
 	}
 
 	@Override
-	public Customer getById(Integer id) {
-		return customerRepositoryMock.getById(id);
+	public Customer getById(final Integer id) {
+		return customerRepository.findByid(id);
 	}
 
+	@Override
+	public Customer insert(final Customer customer) {
+		final Customer customerSaved = customerRepository.save(customer);
+		return customerSaved;
+	}
 }

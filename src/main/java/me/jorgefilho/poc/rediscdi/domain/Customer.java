@@ -1,10 +1,10 @@
 package me.jorgefilho.poc.rediscdi.domain;
 
-import java.io.Serializable;
-
 import org.springframework.data.annotation.Id;
 
-public class Customer implements Serializable{
+import java.io.Serializable;
+
+public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

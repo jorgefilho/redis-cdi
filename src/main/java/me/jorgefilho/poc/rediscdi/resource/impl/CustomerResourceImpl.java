@@ -6,13 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
-
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import me.jorgefilho.poc.rediscdi.annotation.Cached;
+import me.jorgefilho.poc.rediscdi.bean.CustomerRequest;
 import me.jorgefilho.poc.rediscdi.bean.CustomerResponse;
 import me.jorgefilho.poc.rediscdi.domain.Customer;
 import me.jorgefilho.poc.rediscdi.resource.CustomerResource;
@@ -25,6 +26,19 @@ public class CustomerResourceImpl implements CustomerResource{
 	
 	@Inject
 	private CustomerService customerService;
+	
+	@POST
+	@Produces(JSON_UTF_8)
+	@Override
+	public CustomerResponse insert(final CustomerRequest customer) {
+		
+		final Customer customerSaved = customerService.insert(customer.getCustomer());
+	
+		final CustomerResponse customerResponse = new CustomerResponse(Arrays.asList(customerSaved));
+		
+		return customerResponse;
+	}
+	
 	
 	@GET
 	@Produces(JSON_UTF_8)
