@@ -1,21 +1,24 @@
 package me.jorgefilho.poc.rediscdi.domain;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
+@Document(collection="Customer")
 public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private Integer id;
+	private ObjectId id;
 	
 	private String name;
 	
 	private String email;
 
-	public Integer getId() {
+	public ObjectId getId() {
 		return id;
 	}
 
@@ -27,16 +30,14 @@ public class Customer implements Serializable {
 		return email;
 	}
 
-	public Customer(final Integer id, final String name, final String email) {
-		this.id = id;
+	public Customer(final String name, final String email) {
 		this.name = name;
 		this.email = email;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", email=" + email
-				+ "]";
+		return "Customer [id=" + id + ", name=" + name + ", email=" + email + "]";
 	}
 
 	@Override

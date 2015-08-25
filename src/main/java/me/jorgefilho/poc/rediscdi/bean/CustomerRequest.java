@@ -2,34 +2,42 @@ package me.jorgefilho.poc.rediscdi.bean;
 
 
 import java.io.Serializable;
-import java.util.List;
-
-import me.jorgefilho.poc.rediscdi.domain.Customer;
 
 public class CustomerRequest implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	Customer customer;
+	private String name;
+	
+	private String email;
 
-	public CustomerRequest(final Customer customer) {
-		this.customer = customer;
+	public String getName() {
+		return name;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public void setName(final String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(final String email) {
+		this.email = email;
 	}
 
 	@Override
 	public String toString() {
-		return "CustomerRequest [customer=" + customer + "]";
+		return "CustomerRequest [name=" + name + ", email=" + email + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -42,11 +50,17 @@ public class CustomerRequest implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		CustomerRequest other = (CustomerRequest) obj;
-		if (customer == null) {
-			if (other.customer != null)
+		if (email == null) {
+			if (other.email != null)
 				return false;
-		} else if (!customer.equals(other.customer))
+		} else if (!email.equals(other.email))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
+	
 }
