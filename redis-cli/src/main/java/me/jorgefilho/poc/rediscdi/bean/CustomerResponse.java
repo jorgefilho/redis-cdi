@@ -10,29 +10,25 @@ public class CustomerResponse implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private List<Customer> customers;
-	
+
+	public CustomerResponse(List<Customer> customers) {
+		super();
+		this.customers = customers;
+	}
 	public List<Customer> getCustomers() {
 		return customers;
 	}
-
-	public CustomerResponse(final List<Customer> customers) {
-		this.customers = customers;
-	}
-
 	@Override
 	public String toString() {
 		return "CustomerResponse [customers=" + customers + "]";
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((customers == null) ? 0 : customers.hashCode());
+		result = prime * result + ((customers == null) ? 0 : customers.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
