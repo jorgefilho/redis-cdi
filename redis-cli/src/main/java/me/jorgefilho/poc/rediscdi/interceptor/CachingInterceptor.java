@@ -1,22 +1,25 @@
 package me.jorgefilho.poc.rediscdi.interceptor;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import me.jorgefilho.poc.rediscdi.annotation.Cached;
-import me.jorgefilho.poc.rediscdi.domain.Envelope;
-import me.jorgefilho.poc.rediscdi.repository.CacheRepository;
-import me.jorgefilho.poc.rediscdi.util.ClassTypeAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import redis.clients.jedis.exceptions.JedisConnectionException;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+
+import me.jorgefilho.poc.rediscdi.annotation.Cached;
+import me.jorgefilho.poc.rediscdi.domain.Envelope;
+import me.jorgefilho.poc.rediscdi.repository.CacheRepository;
+import me.jorgefilho.poc.rediscdi.util.ClassTypeAdapter;
 
 @Interceptor
 @Cached
@@ -47,9 +50,10 @@ public class CachingInterceptor implements Serializable {
 	private Object getReturnOfCache(final InvocationContext ctx) throws Exception {
 		Object objectToReturn = null;
 
+		final String key = getKey(ctx.getMethod(), ctx.getParameters());
+
 		try{
 			
-			final String key = getKey(ctx.getMethod(), ctx.getParameters());
 			final String json = cacheRepository.get(key);
 			
 			if (json == null) {
@@ -74,6 +78,11 @@ public class CachingInterceptor implements Serializable {
 					LOGGER.warn("Problems whith the object type - Type Envelop {}", type);
 				}
 			} 
+		} catch (JsonSyntaxException e){
+			LOGGER.error("Syntax problem, removing the key!");
+			cacheRepository.del(key);
+			objectToReturn = ctx.proceed();
+			
 		} catch (Exception e){
 			LOGGER.error("*** Redis is out - {}", e.getMessage());
 			objectToReturn = ctx.proceed();

@@ -15,12 +15,18 @@ public class CacheRepositoryImpl implements CacheRepository {
 	private Jedis jedis;
 	
 	@Override
-	public  String setex(String key, int timeToExpire, String json){
+	public  String setex(final String key, final int timeToExpire, final String json){
 		final String statusCode = jedis.setex(key, timeToExpire, json);
 		return statusCode;
 	}
 	@Override
-	public String get(String key) {
+	public String get(final String key) {
 		return jedis.get(key);
 	}
+	
+	@Override 
+	public Long del(final String key){
+		return jedis.del(key);
+	}
+		
 }

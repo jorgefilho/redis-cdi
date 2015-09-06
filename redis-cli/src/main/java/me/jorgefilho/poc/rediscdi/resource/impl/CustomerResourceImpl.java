@@ -36,7 +36,7 @@ public class CustomerResourceImpl implements CustomerResource{
 	@Override
 	public CustomerResponse insert(final CustomerRequest customerRequest) {
 		
-		final Customer customer = new Customer(customerRequest.getName(), customerRequest.getEmail());
+		final Customer customer = new Customer(customerRequest.getId(), customerRequest.getName(), customerRequest.getSurname(), customerRequest.getEmail(), customerRequest.getGender());
 		
 		final Customer customerSaved = customerService.insert(customer);
 	
@@ -61,6 +61,7 @@ public class CustomerResourceImpl implements CustomerResource{
 	@GET
 	@Path("{id}")
 	@Produces(JSON_UTF_8)
+	@Cached(expireInSeconds=6000)
 	@Override
 	public CustomerResponse getById(@PathParam("id") final Integer  id) {
 		

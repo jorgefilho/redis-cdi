@@ -5,6 +5,8 @@ import java.util.List;
 
 import me.jorgefilho.poc.rediscdi.domain.Customer;
 
+
+
 public class CustomerResponse implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -12,7 +14,6 @@ public class CustomerResponse implements Serializable{
 	private List<Customer> customers;
 
 	public CustomerResponse(List<Customer> customers) {
-		super();
 		this.customers = customers;
 	}
 	public List<Customer> getCustomers() {
