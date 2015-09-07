@@ -9,6 +9,7 @@ POC using CDI  and Redis.
 * REDIS
 * Wildfly-swaarm
 * Jedis
+* MongoDB
 
 
 
