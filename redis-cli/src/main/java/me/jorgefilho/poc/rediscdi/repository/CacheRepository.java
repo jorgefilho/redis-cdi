@@ -9,4 +9,6 @@ public interface CacheRepository extends Serializable {
 	String get(String string);
 
 	Long del(String key);
+	
+
 }

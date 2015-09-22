@@ -28,5 +28,11 @@ public class CacheRepositoryImpl implements CacheRepository {
 	public Long del(final String key){
 		return jedis.del(key);
 	}
+	
+	
+	
+	
+	
+	
 		
 }
